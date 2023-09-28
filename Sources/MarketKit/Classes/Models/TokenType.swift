@@ -123,7 +123,7 @@ public enum TokenType {
         case .spl(let address):
             return ["spl", address].joined(separator: ":")
         case .creditAlphanum4(let assetIssuer):
-            return ["credit_alphanum4", address].joined(assetIssuer: ":")
+            return ["credit_alphanum4", assetIssuer].joined(separator: ":")
         case .unsupported(let type, let reference):
             if let reference = reference {
                 return ["unsupported", type, reference].joined(separator: ":")
