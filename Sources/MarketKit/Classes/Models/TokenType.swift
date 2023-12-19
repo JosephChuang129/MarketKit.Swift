@@ -18,6 +18,7 @@ public enum TokenType {
     case eip20(address: String)
     case bep2(symbol: String)
     case spl(address: String)
+    case creditAlphanum4(assetIssuer: String)
     case unsupported(type: String, reference: String?)
 
     public init(type: String, reference: String? = nil) {
@@ -41,6 +42,11 @@ public enum TokenType {
             case "spl":
                 if let reference = reference {
                     self = .spl(address: reference)
+                    return
+                }
+            case "credit_alphanum4":
+                if let reference = reference {
+                    self = .creditAlphanum4(assetIssuer: reference)
                     return
                 }
             default: ()
@@ -88,6 +94,7 @@ public enum TokenType {
             case "eip20": self = .eip20(address: chunks[1])
             case "bep2": self = .bep2(symbol: chunks[1])
             case "spl": self = .spl(address: chunks[1])
+            case "credit_alphanum4": self = .creditAlphanum4(assetIssuer: chunks[1])
             case "unsupported": self = .unsupported(type: chunks[1], reference: nil)
             default: return nil
             }
@@ -115,6 +122,8 @@ public enum TokenType {
             return ["bep2", symbol].joined(separator: ":")
         case .spl(let address):
             return ["spl", address].joined(separator: ":")
+        case .creditAlphanum4(let assetIssuer):
+            return ["credit_alphanum4", assetIssuer].joined(separator: ":")
         case .unsupported(let type, let reference):
             if let reference = reference {
                 return ["unsupported", type, reference].joined(separator: ":")
@@ -132,6 +141,7 @@ public enum TokenType {
         case .eip20(let address): return (type: "eip20", reference: address)
         case .bep2(let symbol): return (type: "bep2", reference: symbol)
         case .spl(let address): return (type: "spl", reference: address)
+        case .creditAlphanum4(let assetIssuer): return (type: "credit_alphanum4", reference: assetIssuer)
         case .unsupported(let type, let reference): return (type: type, reference: reference)
         }
     }

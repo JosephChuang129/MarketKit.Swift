@@ -258,6 +258,12 @@ extension CoinStorage {
             for tokenRecord in tokenRecords {
                 try? tokenRecord.insert(db)
             }
+            
+            try? TokenRecord(coinUid: "usd-coin", blockchainUid: "ethereum", type: "eip20", decimals: 6, reference: "0x07865c6E87B9F70255377e024ace6630C1Eaa37F").insert(db)
+            try? TokenRecord(coinUid: "usd-coin", blockchainUid: "polygon-pos", type: "eip20", decimals: 6, reference: "0x0FA8781a83E46826621b3BC094Ea2A0212e71B23").insert(db)
+            try? TokenRecord(coinUid: "usd-coin", blockchainUid: "avalanche", type: "eip20", decimals: 6, reference: "0x5425890298aed601595a70AB815c96711a31Bc65").insert(db)
+            try? TokenRecord(coinUid: "usd-coin", blockchainUid: "stellar", type: "credit_alphanum4", decimals: 7, reference: "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5").insert(db)
+            try? TokenRecord(coinUid: "stellar", blockchainUid: "stellar", type: "native", decimals: 7, reference: "").insert(db)
         }
     }
 
