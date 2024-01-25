@@ -8,7 +8,8 @@ class CoinSyncer {
     private let keyTokensLastSyncTimestamp = "coin-syncer-tokens-last-sync-timestamp"
     private let keyInitialSyncVersion = "coin-syncer-initial-sync-version"
     private let limit = 1000
-    private let currentVersion = 2
+//    private let currentVersion = 2
+    private let currentVersion = "2.2.5.1"
 
     private let storage: CoinStorage
     private let hsProvider: HsProvider
@@ -79,7 +80,10 @@ extension CoinSyncer {
 
     func initialSync() {
         do {
-            if let versionString = try syncerStateStorage.value(key: keyInitialSyncVersion), let version = Int(versionString), currentVersion == version {
+//            if let versionString = try syncerStateStorage.value(key: keyInitialSyncVersion), let version = Int(versionString), currentVersion == version {
+//                return
+//            }
+            if let versionString = try syncerStateStorage.value(key: keyInitialSyncVersion), currentVersion == versionString {
                 return
             }
 
@@ -105,7 +109,8 @@ extension CoinSyncer {
 
             try storage.update(coins: coins, blockchainRecords: blockchainRecords, tokenRecords: transform(tokenRecords: tokenRecords))
 
-            try syncerStateStorage.save(value: "\(currentVersion)", key: keyInitialSyncVersion)
+//            try syncerStateStorage.save(value: "\(currentVersion)", key: keyInitialSyncVersion)
+            try syncerStateStorage.save(value: currentVersion, key: keyInitialSyncVersion)
             try syncerStateStorage.delete(key: keyCoinsLastSyncTimestamp)
             try syncerStateStorage.delete(key: keyBlockchainsLastSyncTimestamp)
             try syncerStateStorage.delete(key: keyTokensLastSyncTimestamp)
